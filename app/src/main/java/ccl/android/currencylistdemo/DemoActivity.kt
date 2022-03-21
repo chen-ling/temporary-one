@@ -1,9 +1,11 @@
 package ccl.android.currencylistdemo
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import ccl.android.currencylistdemo.databinding.ActivityDemoBinding
+import ccl.android.currencylistdemo.feature.currency.CurrencyListFragment
+import ccl.android.currencylistdemo.feature.currency.CurrencyListFragment.Companion.TAG
 
 class DemoActivity : AppCompatActivity() {
 
@@ -11,8 +13,16 @@ class DemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val inflater = LayoutInflater.from(this)
-        viewBinding = ActivityDemoBinding.inflate(inflater)
+        viewBinding = ActivityDemoBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        openCurrencyListFragment()
     }
+
+    private fun openCurrencyListFragment() {
+        supportFragmentManager.commit(allowStateLoss = true) {
+            add(R.id.fragment_container, CurrencyListFragment::class.java, null)
+            addToBackStack(TAG)
+        }
+    }
+
 }
