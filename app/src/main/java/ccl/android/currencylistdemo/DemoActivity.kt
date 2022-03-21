@@ -40,4 +40,7 @@ class DemoActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        finish()
+    }
 }
