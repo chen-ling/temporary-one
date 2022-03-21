@@ -10,11 +10,14 @@ import ccl.android.currencylistdemo.model.CurrencyInfo
 @Dao
 interface CurrencyDao {
     @Query("SELECT * FROM $TABLE_CURRENCY")
-    fun getAll(): List<CurrencyInfo>
+    suspend fun getAll(): List<CurrencyInfo>
 
     @Query("SELECT * FROM $TABLE_CURRENCY ORDER BY name ASC")
-    fun getAllSortedByName(): List<CurrencyInfo>
+    suspend fun getAllSortedByName(): List<CurrencyInfo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(currencies: List<CurrencyInfo>)
+    suspend fun insertAll(currencies: List<CurrencyInfo>)
+
+    @Query("SELECT COUNT(id) FROM $TABLE_CURRENCY")
+    suspend fun getCount(): Long
 }
